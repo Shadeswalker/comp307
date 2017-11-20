@@ -1,0 +1,15 @@
+<div id="game-gallery" class="row">
+  <div class="col-sm-10 col-sm-offset-1">
+    <% @games.each do | game| %>
+        <div class="responsive">
+          <div class='gallery'>
+            <a href="play_game/<%= game.id %>">
+              <%= image_tag(game.name+'.png', alt: game.name, size:'256x256') %>
+            </a>
+            <div class="desc"><%= game.name %></div>
+          </div>
+        </div>
+    <% end %>
+    <div class="clearfix"></div>
+  </div>
+</div>

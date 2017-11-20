@@ -1,14 +1,47 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>FinalProjectComp307</title>
+    <title>GAMEChanger</title>
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= favicon_link_tag 'joystick.png', type: 'image/png' %>
+
   </head>
 
   <body>
-    <%= yield %>
+    <div id="container-fluid">
+      <header>
+        <nav id="navbar">
+          <div class="row" id="row-header">
+            <div class="col-sm-2 col-sm-offset-1">
+              <div id="home-btn">
+                GAME|Changer
+              </div>
+            </div>
+            <div class="col-sm-5 col-sm-offset-3">
+              <table id="navmenu">
+                <tr>
+                  <td><a href="/">Home</a></td>
+                  <td><a href="/games">Games</a></td>
+                  <td><a href="/developers">Developers</a></td>
+                  <td><a href="/contact">Contact</a></td>
+                </tr>
+              </table>
+            </div>
+          </div>
+          <span id="login"><a href="#">Login</a></span>
+        </nav>
+      </header>
+
+      <main>
+        <%= yield %>
+      </main>
+
+      <footer>
+        GameChanger Inc. © 2017
+      </footer>
+    </div>
   </body>
 </html>
