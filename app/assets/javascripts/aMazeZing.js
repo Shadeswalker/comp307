@@ -25458,10 +25458,10 @@ Bridge.assembly("AMazeZing", function ($asm, globals) {
 
     Bridge.define("AMazeZing.Game", {
         statics: {
-            LEFT_KEY: 37,
-            RIGHT_KEY: 39,
-            UP_KEY: 38,
-            DOWN_KEY: 40,
+            LEFT_KEY: 65,
+            RIGHT_KEY: 68,
+            UP_KEY: 87,
+            DOWN_KEY: 83,
             MAZE_SIZE: 12,
             PLAYER_SPEED: 0.3
         },
@@ -25483,7 +25483,7 @@ Bridge.assembly("AMazeZing", function ($asm, globals) {
         },
         ctor: function () {
             this.$initialize();
-            this.screen = document.querySelector("canvas");
+            this.screen = document.getElementById("screen");
             this.screenContext = this.screen.getContext("2d");
             this.screenContext.fillStyle = "white";
             this.screenContext.font = "40px Consolas, monospace";
