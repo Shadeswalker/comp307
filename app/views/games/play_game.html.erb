@@ -1,10 +1,21 @@
 <div class="row" id="play-game">
   <div class="col-sm-6 col-sm-offset-1">
-    <canvas width="600" height="600" style="background-color: black" id="screen-aMazeZing"></canvas>
+    <canvas width="600" height="600" style="background-color: black" id="screen-<%= @game.name %>" class="game-canvas"></canvas>
   </div>
-  <div class="col-sm-3">
-    <h3>A-Maze-Zing</h3>
-    <a href="https://www.kickstarter.com/projects/1343822689/raji-an-ancient-epic/pledge/new?clicked_reward=false&ref=home_featured&refresh=1"><%= image_tag('examplefund.png', width: 400) %></a>
+  <div class="col-sm-4">
+    <div id="game-funding-info">
+      <h3><%= @game.display_name %></h3>
+      <div id="progress-bar">
+        <div id="completed"></div>
+      </div>
+      <div class="main-info" id="current-fund">$<%= @game.current_fund %></div>
+      <div class="text-labels">pledged of the $<%= @game.fund_goal %> goal</div>
+      <div class="main-info"><%= @game.nmb_backers %></div>
+      <div class="text-labels">backers</div>
+      <div class="main-info" id="days-left"></div>
+      <div class="text-labels">days to go</div>
+      <a href="https://www.kickstarter.com/projects/1343822689/raji-an-ancient-epic/pledge/new?clicked_reward=false&ref=home_featured&refresh=1"><%= image_tag('examplefund.png', width: 400) %></a>
+    </div>
   </div>
 </div>
 
@@ -18,3 +29,32 @@
     <input type="submit" value="Submit">
   </div>
 </div>
+
+<script>
+    reloadPage();
+    loadProgressBar();
+    loadDaysLeft();
+
+    function reloadPage() {
+        if(!window.location.hash) {
+            window.location = window.location + '#loaded';
+            window.location.reload();
+        }
+    }
+
+    function loadProgressBar() {
+        var fund_goal = parseInt("<%= @game.fund_goal %>");
+        var fund = parseInt("<%= @game.current_fund %>");
+        var completed_width = (fund / fund_goal) * $('#progress-bar').width();
+        $('#completed').animate({
+            width: completed_width
+        }, 2000 );
+    }
+
+    function loadDaysLeft() {
+        var current = moment();
+        var last = moment("<%= @game.created_at %>".replace(' UTC','')).add(parseInt("<%= @game.nmb_backers %>"),'d');
+        var days_left = current.diff(last, 'days') + 1;
+        $('#days-left').text(days_left);
+    }
+</script>

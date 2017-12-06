@@ -25485,7 +25485,8 @@ Bridge.assembly("FlappyBrick", function ($asm, globals) {
         },
         ctor: function () {
             this.$initialize();
-            this.screen = document.getElementById("screen-flappyBrick"); //Document.QuerySelector<HTMLCanvasElement>("canvas");
+            this.screen = document.getElementById("screen-flappyBrick");
+            //Document.QuerySelector<HTMLCanvasElement>("canvas");
             this.screenContext = this.screen.getContext("2d");
             this.screenContext.fillStyle = "white";
             this.screenContext.font = "40px Consolas, monospace";

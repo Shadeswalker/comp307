@@ -10,10 +10,48 @@
   padding: 40px 0;
 }
 
+#game-funding-info {
+  background: #ffffff;
+  width: 100%;
+  padding: 1px 10px;
+}
+
+#progress-bar {
+  height: 3px;
+  background-color: #DCDEDD;
+  margin: 30px 0 10px 0;
+}
+
+#completed {
+  height: 3px;
+  width: 0;
+  background-color: #009E74;
+}
+
+.main-info {
+  font-size: 1.6em;
+}
+
+#current-fund {
+  color: #007460;
+}
+
+.text-labels {
+  color: #888888;
+  margin-bottom: 15px;
+}
+
+
+
 #comment {
   margin-top: 20px;
 }
 
+
+
+
+
+//==================== Responsive Gallery =======================
 div.gallery {
   border: 1px solid #ccc;
 }
