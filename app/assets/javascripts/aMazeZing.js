@@ -25483,7 +25483,7 @@ Bridge.assembly("AMazeZing", function ($asm, globals) {
         },
         ctor: function () {
             this.$initialize();
-            this.screen = document.getElementById("screen");
+            this.screen = document.getElementById("screen-aMazeZing");
             this.screenContext = this.screen.getContext("2d");
             this.screenContext.fillStyle = "white";
             this.screenContext.font = "40px Consolas, monospace";

@@ -1,0 +1,9 @@
+C:\Users\Simon\Desktop\McGill\S3\COMP307\Project\FlappyBrick\FlappyBrick\bin\Debug\FlappyBrick.dll
+C:\Users\Simon\Desktop\McGill\S3\COMP307\Project\FlappyBrick\FlappyBrick\bin\Debug\FlappyBrick.pdb
+C:\Users\Simon\Desktop\McGill\S3\COMP307\Project\FlappyBrick\FlappyBrick\bin\Debug\Bridge.dll
+C:\Users\Simon\Desktop\McGill\S3\COMP307\Project\FlappyBrick\FlappyBrick\bin\Debug\Bridge.Html5.dll
+C:\Users\Simon\Desktop\McGill\S3\COMP307\Project\FlappyBrick\FlappyBrick\bin\Debug\Bridge.xml
+C:\Users\Simon\Desktop\McGill\S3\COMP307\Project\FlappyBrick\FlappyBrick\bin\Debug\Bridge.Html5.xml
+C:\Users\Simon\Desktop\McGill\S3\COMP307\Project\FlappyBrick\FlappyBrick\obj\Debug\FlappyBrick.dll
+C:\Users\Simon\Desktop\McGill\S3\COMP307\Project\FlappyBrick\FlappyBrick\obj\Debug\FlappyBrick.pdb
+C:\Users\Simon\Desktop\McGill\S3\COMP307\Project\FlappyBrick\FlappyBrick\bin\Debug\Bridge.Collections.dll
