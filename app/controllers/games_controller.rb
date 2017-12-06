@@ -6,6 +6,9 @@ class GamesController < ApplicationController
   end
 
   def play_game
+    if !(@game.fund_goal)
+      redirect_to '/games/coming_soon'
+    end
   end
 
   private

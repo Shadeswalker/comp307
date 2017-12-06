@@ -41,6 +41,34 @@
   margin-bottom: 15px;
 }
 
+#back-link {
+  text-decoration: none;
+}
+
+#back-link:hover {
+  text-decoration: none;
+}
+
+#backing-button {
+  color: #e5f5f1;
+  font-size: 1.1em;
+  background-color: #009E74;
+  text-align: center;
+  height: 50px;
+  width: 100%;
+  padding-top: 12px;
+  vertical-align: middle;
+  margin-bottom: 10px;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  -webkit-transition-timing-function: ease-out;
+  transition-timing-function: ease-out;
+}
+
+#backing-button:hover {
+  color: #ffffff;
+  background-color: #006e51;
+}
 
 
 #comment {
