@@ -1,5 +1,5 @@
 class GamesController < ApplicationController
-  before_action :find_game, only: [:play_game]
+  before_action :find_game, only: [:play_game, :fund_game]
 
   def index
     @games = Game.all
@@ -9,6 +9,9 @@ class GamesController < ApplicationController
     if !(@game.fund_goal)
       redirect_to '/games/coming_soon'
     end
+  end
+
+  def fund_game
   end
 
   private

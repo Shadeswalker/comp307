@@ -15,19 +15,96 @@
       <div class="text-labels">backers</div>
       <div class="main-info" id="days-left"></div>
       <div class="text-labels">days to go</div>
-      <a href="https://www.kickstarter.com/projects/1343822689/raji-an-ancient-epic/pledge/new?clicked_reward=false&ref=home_featured&refresh=1" id="back-link"><div id="backing-button">Back this project</div></a>
+      <div id="funding-box">
+        <div id="backing-button">Back this project</div>
+        <!-- Stripe -->
+        <%= form_tag charges_path, id:'chargeForm' do %>
+
+            <!-- display errors -->
+            <% if flash[:error].present? %>
+                <div id="error_explanation">
+                  <p><%= flash[:error] %></p>
+                </div>
+            <% end %>
+
+            <!-- form fields -->
+            <article>
+              <%= label_tag(:amount, 'Donation Amount:') %><br>
+              <%= text_field_tag(:amount) %>
+            </article>
+            <%= hidden_field_tag 'stripeToken' %>
+            <%= hidden_field_tag 'stripeEmail' %>
+            <%= hidden_field_tag 'amount', 500 %>
+
+            <!-- button launches form -->
+            <button id='donateButton' type="button" class="btn btn-success">Sponsor this game!</button>
+
+            <!-- necessary scripts for the form submit-->
+            <script src="https://checkout.stripe.com/checkout.js"></script>
+
+            <script>
+
+                //handler object is configured with a few options, including the public API key and a call back for the token.
+                var handler = StripeCheckout.configure({
+                    key: '<%= Rails.configuration.stripe[:publishable_key] %>',
+                    locale: 'auto',
+                    name: 'Be A Game Changer',
+                    description: 'Sponsor this game',
+                    token: function(token, arg) {
+                        document.getElementById("stripeToken").value = token.id;
+                        document.getElementById("stripeEmail").value = token.email;
+                        document.getElementById("chargeForm").submit();
+                    }
+                });
+
+                //when the user clicks on the button,
+                //the javascript verifies the amount specified and
+                //if valid, launches the chekout.
+                $('#donateButton').on('click', function(e) {
+                    e.preventDefault();
+
+                    $('#error_explanation').html('');
+
+                    var amount = $('input#amount').val();
+                    amount = amount.replace(/\$/g, '').replace(/\,/g, '')
+
+                    amount = parseFloat(amount);
+
+                    if (isNaN(amount)) {
+                        $('#error_explanation').html('<p>Please enter a valid amount in USD ($).</p>');
+                    }
+                    else if (amount < 5.00) {
+                        $('#error_explanation').html('<p>Donation amount must be at least $5.</p>');
+                    }
+                    else {
+                        amount = amount * 100; // Needs to be an integer!
+                        handler.open({
+                            amount: Math.round(amount)
+                        })
+                    }
+                });
+
+                // Close Checkout on page navigation
+                $(window).on('popstate', function() {
+                    handler.close();
+                });
+
+            </script>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>
 
 <div class="row" id="comment-section">
   <div class="col-sm-10 col-sm-offset-1">
-    <h1>Comments</h1>
-    <h4>Subject: Great Game!</h4>
-    <h5><a href="#">Arjun Gupta</a> 20/11/2017 at 04:21am.</h5>
-    <p>Great game man, I chipped in $20. You should probably slow the speed of the cube or make it easier to take corners, but apart from that, it's very satisfying!</p>
-    <textarea placeholder="Write a comment here" name="message" rows="3" cols="80"  id="comment" ></textarea><br>
-    <input type="submit" value="Submit">
+    <div class="page-content">
+      <h1>Comments</h1>
+      <h5><a href="#">Arjun Gupta</a> 20/11/2017 at 04:21am.</h5>
+      <p>Great game man, I chipped in $20. You should probably slow the speed of the cube or make it easier to take corners, but apart from that, it's very satisfying!</p>
+      <textarea placeholder="Write a comment here" name="message" rows="3" cols="80"  id="comment" ></textarea><br>
+      <input type="submit" value="Submit">
+    </div>
   </div>
 </div>
 
@@ -42,6 +119,12 @@
     reloadPage();
     loadProgressBar();
     loadDaysLeft();
+
+    $(document).ready(function(){
+        $('#backing-button').click(function(){
+            $('#chargeForm').slideToggle();
+        });
+    });
 
     function reloadPage() {
         if(!window.location.hash) {
