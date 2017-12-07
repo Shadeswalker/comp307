@@ -100,10 +100,39 @@
   <div class="col-sm-10 col-sm-offset-1">
     <div class="page-content">
       <h1>Comments</h1>
-      <h5><a href="#">Arjun Gupta</a> 20/11/2017 at 04:21am.</h5>
-      <p>Great game man, I chipped in $20. You should probably slow the speed of the cube or make it easier to take corners, but apart from that, it's very satisfying!</p>
-      <textarea placeholder="Write a comment here" name="message" rows="3" cols="80"  id="comment" ></textarea><br>
-      <input type="submit" value="Submit">
+
+      <% if @comments.length != 0 %>
+        <% @comments.each do |c| %>
+            <div class="row comments">
+              <div class="col-sm-2 auth">
+                <%= image_tag('pp.jpg', alt: c.author, size:'25x25') %>
+                <span class="author">
+                  <%= c.author %>
+                </span>
+                <div class="comment-date">
+                  <%= c.created_at %>
+                </div>
+              </div>
+              <div class="com-separation"></div>
+              <div class="col-sm-8">
+                <%= c.text %>
+              </div>
+            </div>
+        <% end %>
+      <% else %>
+        <div class="row">
+          <div class="col-sm-12">
+            Nobody has commented on this game yet.
+          </div>
+        </div>
+      <% end %>
+
+      <form action="/play_game/add_comment" method="post">
+        <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+        <textarea placeholder="Write a comment here" name="comment[text]" rows="3" cols="80"  id="comment" ></textarea><br>
+        <input type="hidden" name="comment[game]" value="<%= @game.id %>">
+        <input type="submit" value="Send">
+      </form>
     </div>
   </div>
 </div>

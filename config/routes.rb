@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   get 'games'               => 'games#index'
   get 'games/coming_soon'   => 'games#coming_soon'
   get 'play_game/:id'       => 'games#play_game'
+  post 'play_game/add_comment'    => 'games#add_comment'
 
 
 

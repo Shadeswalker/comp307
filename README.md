@@ -26,6 +26,9 @@ Commands used for db creation:
 * `$ rails generate model Game name:string dev:string fund_goal:integer current_fund:integer nmb_backers:integer funding_period:integer`
 
 #### Main instructions
+* Restore the database using the `psqldump.dump` file.
 * Boot the postgres database.
+* Make the changes in the database users in the file `/config/database.yml`.
+* Run `$ bundle install` to install the gems dependencies.
 * Run `$ rails s` command in the terminal to start the server.
 * Go to your browser and type "localhost:3000" as a URL.

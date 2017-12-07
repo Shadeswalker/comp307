@@ -1,0 +1,253 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 9.6.3
+-- Dumped by pg_dump version 9.6.3
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET search_path = public, pg_catalog;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- Name: ar_internal_metadata; Type: TABLE; Schema: public; Owner: arjun
+--
+
+CREATE TABLE ar_internal_metadata (
+    key character varying NOT NULL,
+    value character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE ar_internal_metadata OWNER TO arjun;
+
+--
+-- Name: comments; Type: TABLE; Schema: public; Owner: arjun
+--
+
+CREATE TABLE comments (
+    id bigint NOT NULL,
+    text text,
+    author character varying DEFAULT 'Anonymous'::character varying,
+    reply integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    game integer
+);
+
+
+ALTER TABLE comments OWNER TO arjun;
+
+--
+-- Name: comments_id_seq; Type: SEQUENCE; Schema: public; Owner: arjun
+--
+
+CREATE SEQUENCE comments_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE comments_id_seq OWNER TO arjun;
+
+--
+-- Name: comments_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: arjun
+--
+
+ALTER SEQUENCE comments_id_seq OWNED BY comments.id;
+
+
+--
+-- Name: games; Type: TABLE; Schema: public; Owner: arjun
+--
+
+CREATE TABLE games (
+    id bigint NOT NULL,
+    name character varying,
+    dev character varying,
+    fund_goal integer,
+    current_fund integer,
+    nmb_backers integer,
+    funding_period integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    display_name text
+);
+
+
+ALTER TABLE games OWNER TO arjun;
+
+--
+-- Name: games_id_seq; Type: SEQUENCE; Schema: public; Owner: arjun
+--
+
+CREATE SEQUENCE games_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE games_id_seq OWNER TO arjun;
+
+--
+-- Name: games_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: arjun
+--
+
+ALTER SEQUENCE games_id_seq OWNED BY games.id;
+
+
+--
+-- Name: schema_migrations; Type: TABLE; Schema: public; Owner: arjun
+--
+
+CREATE TABLE schema_migrations (
+    version character varying NOT NULL
+);
+
+
+ALTER TABLE schema_migrations OWNER TO arjun;
+
+--
+-- Name: comments id; Type: DEFAULT; Schema: public; Owner: arjun
+--
+
+ALTER TABLE ONLY comments ALTER COLUMN id SET DEFAULT nextval('comments_id_seq'::regclass);
+
+
+--
+-- Name: games id; Type: DEFAULT; Schema: public; Owner: arjun
+--
+
+ALTER TABLE ONLY games ALTER COLUMN id SET DEFAULT nextval('games_id_seq'::regclass);
+
+
+--
+-- Data for Name: ar_internal_metadata; Type: TABLE DATA; Schema: public; Owner: arjun
+--
+
+COPY ar_internal_metadata (key, value, created_at, updated_at) FROM stdin;
+environment	development	2017-11-20 06:34:13.807214	2017-11-20 06:34:13.807214
+\.
+
+
+--
+-- Data for Name: comments; Type: TABLE DATA; Schema: public; Owner: arjun
+--
+
+COPY comments (id, text, author, reply, created_at, updated_at, game) FROM stdin;
+1	Great game, I enjoyed it a lot. I gave $20, if you make a longer version I'll give more for sure!	Arjun Gupta	\N	2017-12-07 02:39:00.835956	2017-12-07 02:39:00.835956	2
+2	I gave $50! Could you make more complex mazes?	Eddy Maloo	\N	2017-12-07 03:05:32.229927	2017-12-07 03:05:32.229927	2
+3	Nice!!!	Anonymous	\N	2017-12-07 04:06:56.064011	2017-12-07 04:06:56.064011	2
+\.
+
+
+--
+-- Name: comments_id_seq; Type: SEQUENCE SET; Schema: public; Owner: arjun
+--
+
+SELECT pg_catalog.setval('comments_id_seq', 3, true);
+
+
+--
+-- Data for Name: games; Type: TABLE DATA; Schema: public; Owner: arjun
+--
+
+COPY games (id, name, dev, fund_goal, current_fund, nmb_backers, funding_period, created_at, updated_at, display_name) FROM stdin;
+2	aMazeZing	Simon Fredette	3000	550	3	60	2017-11-20 07:09:31.60709	2017-12-06 05:35:41.559543	A-Maze-Zing
+3	flappyBrick	Simon Fredette	500	0	0	60	2017-11-20 07:12:18.713033	2017-12-06 05:36:18.453325	Flappy Brick
+4	bigGameHunter	\N	\N	\N	\N	\N	2017-11-20 07:12:47.745055	2017-12-06 05:36:35.996559	Big Game Hunter
+5	billTheBull	\N	\N	\N	\N	\N	2017-11-20 07:13:01.92117	2017-12-06 05:37:02.124996	Bill The Bull
+6	dontGetEaten	\N	\N	\N	\N	\N	2017-11-20 07:13:12.913742	2017-12-06 05:37:25.653755	Don't Get Eaten
+7	farmLand	\N	\N	\N	\N	\N	2017-11-20 07:13:30.554415	2017-12-06 05:37:55.615164	Farm Land
+8	NFLLegend	\N	\N	\N	\N	\N	2017-11-20 07:13:48.922819	2017-12-06 05:38:17.190635	NFL Legend
+9	sniffingDog	\N	\N	\N	\N	\N	2017-11-20 07:13:59.627368	2017-12-06 05:38:30.967544	Sniffing Dog
+10	whackAMole	\N	\N	\N	\N	\N	2017-11-20 07:14:10.667862	2017-12-06 05:38:41.543352	Whack-A-Mole
+\.
+
+
+--
+-- Name: games_id_seq; Type: SEQUENCE SET; Schema: public; Owner: arjun
+--
+
+SELECT pg_catalog.setval('games_id_seq', 10, true);
+
+
+--
+-- Data for Name: schema_migrations; Type: TABLE DATA; Schema: public; Owner: arjun
+--
+
+COPY schema_migrations (version) FROM stdin;
+20171120063356
+20171206053236
+20171207015202
+20171207021010
+\.
+
+
+--
+-- Name: ar_internal_metadata ar_internal_metadata_pkey; Type: CONSTRAINT; Schema: public; Owner: arjun
+--
+
+ALTER TABLE ONLY ar_internal_metadata
+    ADD CONSTRAINT ar_internal_metadata_pkey PRIMARY KEY (key);
+
+
+--
+-- Name: comments comments_pkey; Type: CONSTRAINT; Schema: public; Owner: arjun
+--
+
+ALTER TABLE ONLY comments
+    ADD CONSTRAINT comments_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: games games_pkey; Type: CONSTRAINT; Schema: public; Owner: arjun
+--
+
+ALTER TABLE ONLY games
+    ADD CONSTRAINT games_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: schema_migrations schema_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: arjun
+--
+
+ALTER TABLE ONLY schema_migrations
+    ADD CONSTRAINT schema_migrations_pkey PRIMARY KEY (version);
+
+
+--
+-- PostgreSQL database dump complete
+--
+
