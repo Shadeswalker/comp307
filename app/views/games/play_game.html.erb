@@ -1,6 +1,5 @@
 <script>
   function changeReply(reply,author) {
-      debugger;
       $('#reply-input').val(reply);
       if (reply != "") {
           $('#response-to').text(author);
@@ -169,6 +168,9 @@
         <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
         <textarea placeholder="Write a comment here" name="comment[text]" rows="3" cols="80"  id="comment" ></textarea><br>
         <input type="hidden" name="comment[game]" value="<%= @game.id %>">
+        <% if user_signed_in? %>
+          <input type="hidden" name="comment[author]" value="<%= current_user.name %>">
+        <% end %>
         <input type="hidden" name="comment[reply]" value="" id="reply-input">
         <input type="submit" value="Send">
       </form>

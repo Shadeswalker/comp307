@@ -14,7 +14,6 @@ class GamesController < ApplicationController
 
   def add_comment
     @comment = Comment.new(comment_params)
-    debugger
     @comment.save
     if @comment.reply == nil
       Comment.update(@comment.id, :reply => @comment.id)
@@ -35,6 +34,6 @@ class GamesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def comment_params
-      params.require(:comment).permit(:text, :game)
+      params.require(:comment).permit(:text, :game, :author, :reply)
     end
 end
