@@ -86,7 +86,7 @@
 }
 
 #comment {
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
 .auth {
@@ -97,6 +97,11 @@
   background-color: white;
   padding: 15px 10px;
   margin-top: 10px;
+}
+
+#response-msg {
+  margin-top: 10px;
+  display: none;
 }
 
 .author {

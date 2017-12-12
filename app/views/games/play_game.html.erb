@@ -1,3 +1,16 @@
+<script>
+  function changeReply(reply,author) {
+      debugger;
+      $('#reply-input').val(reply);
+      if (reply != "") {
+          $('#response-to').text(author);
+          $('#response-msg').show();
+      } else {
+          $('#response-msg').hide();
+      }
+  }
+</script>
+
 <div class="row" id="play-game">
   <div class="col-sm-6 col-sm-offset-1">
     <canvas width="600" height="600" style="background-color: black" id="screen-<%= @game.name %>" class="game-canvas"></canvas>
@@ -103,21 +116,43 @@
 
       <% if @comments.length != 0 %>
         <% @comments.each do |c| %>
-            <div class="row comments">
-              <div class="col-sm-2 auth">
-                <%= image_tag('pp.jpg', alt: c.author, size:'25x25') %>
-                <span class="author">
-                  <%= c.author %>
-                </span>
-                <div class="comment-date">
-                  <%= c.created_at %>
-                </div>
+              <div class="row">
+                <% if c.reply == c.id %>
+                  <div class="col-sm-12">
+                    <div class="row comments">
+                          <div class="col-sm-2 auth">
+                            <%= image_tag('pp.jpg', alt: c.author, size:'25x25') %>
+                            <span class="author"><%= c.author %></span>
+                            <div class="comment-date">
+                              <%= c.created_at %>
+                            </div>
+                          </div>
+                          <div class="com-separation"></div>
+                          <div class="col-sm-9">
+                            <%= c.text %><br>
+                            <button type="button" onclick="changeReply('<%= c.reply %>','<%= c.author %>')">Reply</button>
+                          </div>
+                    </div>
+                  </div>
+                <% else %>
+                  <div class="col-sm-11 col-sm-offset-1">
+                    <div class="row comments">
+                      <div class="col-sm-3 auth">
+                        <%= image_tag('pp.jpg', alt: c.author, size:'25x25') %>
+                        <span class="author"><%= c.author %></span>
+                        <div class="comment-date">
+                          <%= c.created_at %>
+                        </div>
+                      </div>
+                      <div class="com-separation"></div>
+                      <div class="col-sm-8">
+                        <%= c.text %><br>
+                        <button type="button" onclick="changeReply('<%= c.reply %>','<%= c.author %>')">Reply</button>
+                      </div>
+                    </div>
+                  </div>
+                <% end %>
               </div>
-              <div class="com-separation"></div>
-              <div class="col-sm-8">
-                <%= c.text %>
-              </div>
-            </div>
         <% end %>
       <% else %>
         <div class="row">
@@ -127,10 +162,14 @@
         </div>
       <% end %>
 
+      <div id="response-msg">(In response to <span id="response-to"></span>)
+        <button onclick="changeReply('','')">Cancel</button><br>
+      </div>
       <form action="/play_game/add_comment" method="post">
         <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
         <textarea placeholder="Write a comment here" name="comment[text]" rows="3" cols="80"  id="comment" ></textarea><br>
         <input type="hidden" name="comment[game]" value="<%= @game.id %>">
+        <input type="hidden" name="comment[reply]" value="" id="reply-input">
         <input type="submit" value="Send">
       </form>
     </div>
@@ -140,8 +179,8 @@
 <script>
   //remove scrolling with space bar
     $(document).keydown(function(e) {
-        if (e.which === 32) {
-            return false;
+        if (e.which == 32 && e.target == document.body) {
+            e.preventDefault();
         }
     });
 

@@ -13,9 +13,12 @@ class GamesController < ApplicationController
   end
 
   def add_comment
-    debugger
     @comment = Comment.new(comment_params)
+    debugger
     @comment.save
+    if @comment.reply == nil
+      Comment.update(@comment.id, :reply => @comment.id)
+    end
     redirect_to "/play_game/#{@comment.game}"
   end
 
@@ -26,7 +29,8 @@ class GamesController < ApplicationController
     end
 
     def retrieve_comments
-      @comments = Comment.where(game: params[:id])
+      @comments = Comment.where(game: params[:id]).order(:reply, :created_at)
+
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
