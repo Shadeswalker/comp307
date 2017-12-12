@@ -23,7 +23,8 @@ ruby 2.4.1p111 (2017-03-22 revision 58053) [x86_64-darwin16]
 #### Database
 Using postgres as our DBS.  
 Commands used for db creation:
-* `$ rails generate model Game name:string dev:string fund_goal:integer current_fund:integer nmb_backers:integer funding_period:integer`
+* `$ rails g model Game name:string dev:string fund_goal:integer current_fund:integer nmb_backers:integer funding_period:integer`
+* `$ rails g model Comment text:text author:string reply:int game:integer`
 
 #### Main instructions
 * Restore the database using the `psqldump.dump` file.
